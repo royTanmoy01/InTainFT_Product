@@ -1,4 +1,4 @@
-# InTainFT_Product
+# InTainFT_POC
 
 
 Intain PoC Challenge: Personal Spending
