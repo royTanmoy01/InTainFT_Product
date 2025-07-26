@@ -122,3 +122,15 @@ Available Resources (Suggested)
  Google Places API: Free tier (SKU: Basic Data, Text Search, Place Details)  Sample Data: Create realistic Indian merchant transaction data
  No restriction on using AI tools for learning APIs, but core logic should
 demonstrate your thinking
+
+## PCI-DSS Compliance Notes
+- No card data is stored in the database or logs.
+- Payment method details are masked in API responses.
+- Sensitive fields (email, payment_id) are anonymized before returning to frontend.
+- All API keys are managed via environment variables and never exposed to the client.
+- Audit logging is enabled for all financial transactions.
+
+## Privacy/Anonymization
+- User emails and payment IDs are masked in API responses.
+- Anonymization utility is implemented in backend for sensitive fields.
+- Data encryption is used for sensitive financial information.

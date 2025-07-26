@@ -1,6 +1,7 @@
 import React from 'react';
 import { Paper, Typography } from '@mui/material';
 import { Pie } from 'react-chartjs-2';
+import '../styles/charts.css';
 
 export default function PaymentMethodChart({ transactions }) {
   const methodCounts = transactions.reduce((acc, tx) => {

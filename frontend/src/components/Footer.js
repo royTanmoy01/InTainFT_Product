@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
+import '../styles/dashboard.css';
 
 export default function Footer() {
   return (
@@ -16,7 +17,7 @@ export default function Footer() {
       borderTop: '1px solid #2D4059',
     }}>
       <Typography variant="body2">
-        Personal Spending Intelligence Platform &copy; {new Date().getFullYear()} &mdash; Built for Intain PoC Challenge
+        Personal Spending Intelligence Platform &copy; {new Date().getFullYear()} &mdash; SpendWise Dashboard
       </Typography>
     </Box>
   );

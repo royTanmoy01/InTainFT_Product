@@ -1,17 +1,21 @@
-// Clear all transactions for the current user (Demo Reset)
-const clearTransactions = async (req, res) => {
-  try {
-    await Transaction.deleteMany({ user: req.user.id });
-    res.json({ message: 'All transactions cleared for user.' });
-  } catch (err) {
-    res.status(500).json({ message: 'Clear failed', error: err.message });
-  }
-};
 import Transaction from '../models/Transaction.js';
 import axios from 'axios';
 import Fuse from 'fuse.js';
 import { cache } from '../../cache.js';
 import mlCategorize from '../../mlCategorizer.js';
+import maskSensitive from '../../privacy.js';
+import { io } from '../socket.js';
+
+// Clear all transactions for the current user (Demo Reset)
+const clearTransactions = async (req, res) => {
+  try {
+    await Transaction.deleteMany({ user: req.user.id });
+    io.emit('transactionsUpdated', { user: req.user.id });
+    res.json({ message: 'All transactions cleared for user.' });
+  } catch (err) {
+    res.status(500).json({ message: 'Clear failed', error: err.message });
+  }
+};
 
 // Helper: Fuzzy match merchant name to previous merchants for normalization
 const fuzzyNormalizeMerchant = async (userId, merchantName) => {
@@ -130,6 +134,7 @@ const importTransactions = async (req, res) => {
         anomaly: false
       }));
     }
+    io.emit('transactionsUpdated', { user: req.user.id });
     res.json({ message: 'Imported', count: enriched.length });
   } catch (err) {
     res.status(500).json({ message: 'Import failed', error: err.message });
@@ -172,9 +177,8 @@ const getTransactions = async (req, res) => {
       const fuse = new Fuse(txs, { keys: ['merchant_details.name', 'description'], threshold: 0.4 });
       txs = fuse.search(merchant).map(r => r.item);
     }
-    import('../../privacy.js').then(({default: maskSensitive}) => {
-      res.json(txs.map(maskSensitive));
-    });
+    txs = txs.map(tx => maskSensitive(tx));
+    res.json(txs);
   } catch (err) {
     res.status(500).json({ message: 'Fetch failed', error: err.message });
   }
@@ -188,10 +192,10 @@ const analyzeSpending = async (req, res) => {
     const byMonth = {};
     let total = 0;
     for (const tx of txs) {
-      total += tx.amount;
       byCategory[tx.category] = (byCategory[tx.category] || 0) + tx.amount;
-      const month = tx.created_at.toISOString().slice(0,7);
+      const month = new Date(tx.created_at).toISOString().slice(0, 7);
       byMonth[month] = (byMonth[month] || 0) + tx.amount;
+      total += tx.amount;
     }
     // Simple anomaly: flag tx > 2x avg
     const avg = total / (txs.length || 1);

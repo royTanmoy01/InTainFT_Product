@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Box } from '@mui/material';
 import SavingsIcon from '@mui/icons-material/Savings';
+import '../styles/dashboard.css';
 
 export default function Header() {
   return (

@@ -3,6 +3,7 @@ import { Paper, Typography, List, ListItem, ListItemIcon, ListItemText, Box } fr
 import { Lightbulb, Repeat } from '@mui/icons-material';
 import axios from 'axios';
 import { getToken } from '../utils/auth';
+import '../styles/dashboard.css';
 
 export default function Recommendations() {
   const [recommendations, setRecommendations] = useState([]);

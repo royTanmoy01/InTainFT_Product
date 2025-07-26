@@ -1,4 +1,3 @@
-
 import dotenv from 'dotenv';
 dotenv.config();
 
@@ -11,13 +10,17 @@ import authRoutes from './routes/auth.js';
 import transactionRoutes from './routes/transactions.js';
 import userRoutes from './routes/user.js';
 import { auditLogger } from './middleware/auditLogger.js';
+import http from 'http';
+import setupSocket from './socket.js';
 
 console.log('GOOGLE_CLIENT_ID:', process.env.GOOGLE_CLIENT_ID);
 console.log('GOOGLE_CLIENT_SECRET:', process.env.GOOGLE_CLIENT_SECRET);
 
 
 const app = express();
-
+const server = http.createServer(app);
+const io = setupSocket(server);
+export { io };
 
 app.use(cors());
 app.use(express.json());
@@ -53,4 +56,4 @@ app.get('/', (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
