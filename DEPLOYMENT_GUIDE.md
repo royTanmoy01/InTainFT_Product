@@ -43,15 +43,15 @@ SpendWise is a comprehensive Personal Spending Intelligence Dashboard built for 
 #### Backend Environment Variables
 Create `/backend/.env` file:
 
-JWT_SECRET=b761eadc1ccd00dada630b2f9449309be526164765f86ebbc52a4f30fe9de51a
-RAZORPAY_KEY_ID=rzp_test_SybYCYbz3UcP7c
-RAZORPAY_KEY_SECRET=xpK6w0WZh3NemLyTNFAbOJz3
-GOOGLE_PLACES_API_KEY=AIzaSyCbmcEhQA280cAFYBAekAIY8AdDJiRlFfE
-MONGODB_URI=mongodb+srv://troy:11111@cluster0.pougiuq.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0
-GOOGLE_CLIENT_ID=1089567110298-39m5pspk3c675c27mh9qfgma3j0d8gr0.apps.googleusercontent.com
-GOOGLE_CLIENT_SECRET=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
-RAZORPAY_API_URL=https://api.razorpay.com/v1/payments
-GOOGLE_PLACES_API_URL=https://maps.googleapis.com/maps/api/place/findplacefromtext/json
+JWT_SECRET=
+RAZORPAY_KEY_ID=
+RAZORPAY_KEY_SECRET=
+GOOGLE_PLACES_API_KEY=
+MONGODB_URI=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+RAZORPAY_API_URL=
+GOOGLE_PLACES_API_URL=
 PORT=5000
 NODE_ENV=development
 
@@ -60,9 +60,9 @@ NODE_ENV=development
 #### Frontend Environment Variables
 Create `/frontend/.env` file:
 
-REACT_APP_API_URL=http://localhost:5000 // put your localhost api url here
-REACT_APP_MAP_TILE_URL=https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png
-REACT_APP_WS_URL = wss://cautious-eureka-qrrr4vw5679fw9x-5000.app.github.dev // put your localhost ws url here (similar as api url)
+REACT_APP_API_URL=
+REACT_APP_MAP_TILE_URL=
+REACT_APP_WS_URL =
 
 ```
 
